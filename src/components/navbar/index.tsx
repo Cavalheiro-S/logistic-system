@@ -1,62 +1,35 @@
 import { Link } from "react-router-dom"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu"
 import { Separator } from "../ui/separator"
-
-type NavItem = {
-    title: string,
-    description: string,
-    pathCreate: string
-    pathView: string
-}
+import useGetItems from "./hooks/use-get-items"
 
 export const Navbar = () => {
-    const navItems: NavItem[] = [
-        {
-            title: "Produtos",
-            description: "Cadastre seus produtos",
-            pathCreate: "/product/create",
-            pathView: "/product/view",
-
-        },
-        {
-            title: "Pedidos",
-            description: "Cadastre seus pedidos",
-            pathCreate: "/order/create",
-            pathView: "/order/view"
-        },
-        {
-            title: "Veículos",
-            description: "Cadastre os veiculos",
-            pathCreate: "/vehicle/create",
-            pathView: "/vehicle/view"
-        },
-        {
-            title: "Motoristas",
-            description: "Cadastre os motoristas",
-            pathCreate: "/driver/create",
-            pathView: "/driver/view"
-        },
-        {
-            title: "Usuários",
-            description: "Cadastre os usuários",
-            pathCreate: "/user/create",
-            pathView: "/user/view"
-        }
-    ]
+    const data = useGetItems()
 
     const renderNavItem = (item: NavItem) => {
 
         return (
-            <li className="p-2 rounded-md hover:bg-gray-200 ">
-                <NavigationMenuLink asChild>
-                    <Link className="text-start" to={item.pathCreate}>
-                        <h4>{item.title}</h4>
-                        <p className="text-sm leading-tight text-muted-foreground">
-                            {item.description}
-                        </p>
-                    </Link>
-                </NavigationMenuLink>
-            </li>
+            <NavigationMenuItem className={`${item.visible ? "" : "hidden"}`}>
+                <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                    <ul className="grid grid-cols-2 p-4 w-[600px]">
+                        {
+                            item.children.map((item) => (
+                                <li>
+                                    <NavigationMenuLink asChild>
+                                        <Link className="text-start" to={item.path}>
+                                            <h4>{item.title}</h4>
+                                            <p className="text-sm leading-tight text-muted-foreground">
+                                                {item.description}
+                                            </p>
+                                        </Link>
+                                    </NavigationMenuLink>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </NavigationMenuContent>
+            </NavigationMenuItem>
         )
     }
     return (
@@ -65,15 +38,7 @@ export const Navbar = () => {
             <Separator orientation="vertical" />
             <NavigationMenu className="m-2">
                 <NavigationMenuList>
-                    <NavigationMenuItem>
-                        <NavigationMenuTrigger>Cadastros</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                            <ul className="grid grid-cols-2 p-4 w-[600px]">
-                                {navItems.map((item) => renderNavItem(item))}
-
-                            </ul>
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>
+                    {data.map((item) => renderNavItem(item))}
                 </NavigationMenuList>
             </NavigationMenu>
         </div>
