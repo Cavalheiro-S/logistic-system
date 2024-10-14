@@ -23,42 +23,6 @@ const useGetItems = () => {
 
     const navItems: NavItem[] = [
         {
-            title: "Produto",
-            visible: permissions.some(permission => permission.entitiy === PermissionEntities.PRODUCT),
-            children: [
-                {
-                    title: "Cadastrar",
-                    description: "Cadastre seus produtos",
-                    path: "/product/create",
-                    visible: permissions.some(permission => permission.entitiy === PermissionEntities.PRODUCT && permission.action === PermissionEnum.CREATE),
-                },
-                {
-                    title: "Listar",
-                    description: "Liste seus produtos",
-                    path: "/product/view",
-                    visible: permissions.some(permission => permission.entitiy === PermissionEntities.PRODUCT && permission.action === PermissionEnum.VIEW),
-                }
-            ]
-        },
-        {
-            title: "Pedido",
-            visible: permissions.some(permission => permission.entitiy === PermissionEntities.ORDER),
-            children: [
-                {
-                    title: "Cadastrar",
-                    description: "Cadastre seus pedidos",
-                    path: "/order/create",
-                    visible: permissions.some(permission => permission.entitiy === PermissionEntities.ORDER && permission.action === PermissionEnum.CREATE),
-                },
-                {
-                    title: "Listar",
-                    description: "Liste seus pedidos",
-                    path: "/order/view",
-                    visible: permissions.some(permission => permission.entitiy === PermissionEntities.ORDER && permission.action === PermissionEnum.VIEW),
-                }
-            ]
-        },
-        {
             title: "Veículo",
             visible: permissions.some(permission => permission.entitiy === PermissionEntities.VEHICLE),
             children: [

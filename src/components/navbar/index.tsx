@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu"
 import { Separator } from "../ui/separator"
 import useGetItems from "./hooks/use-get-items"
+import { LogOut } from "lucide-react"
+import { useAuth } from "@/hooks/use-auth"
 
 export const Navbar = () => {
+    const { logout } = useAuth()
+    const navigate = useNavigate()
     const data = useGetItems()
 
     const renderNavItem = (item: NavItem) => {
@@ -33,14 +37,24 @@ export const Navbar = () => {
         )
     }
     return (
-        <div className="flex items-center justify-start p-2 px-4 space-x-4 border-b-2 border-gray-200">
+        <div className="flex items-center justify-between w-full p-2 px-4 border-b-2 border-gray-200">
             <h2 className="text-xl">Sistema de logistica</h2>
             <Separator orientation="vertical" />
-            <NavigationMenu className="m-2">
+            <NavigationMenu className="m-2 mr-auto">
                 <NavigationMenuList>
                     {data.map((item) => renderNavItem(item))}
                 </NavigationMenuList>
             </NavigationMenu>
+            <div onClick={() => {
+                logout()
+                window.location.reload()
+                navigate("/signin")
+            }} className="flex items-center gap-2 cursor-pointer">
+                <LogOut />
+                <span>
+                    Sair
+                </span>
+            </div>
         </div>
     )
 }
