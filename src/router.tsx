@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
                 index: true,
                 element: <div className="flex flex-col items-center gap-2">
                     <span className="text-2xl"> Bem vindo ao sistema de logística</span> 
-                    <Link to={"signin"}>
+                    <Link to={"/signin"}>
                         <Button>
                             Acessar o Sistema
                         </Button>

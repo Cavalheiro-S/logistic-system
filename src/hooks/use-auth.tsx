@@ -1,18 +1,10 @@
-import { RolesEnum } from "@/enum/roles"
+import { AuthContext } from "@/provider/auth-provider";
+import { useContext } from "react";
 
 export const useAuth = () => {
-
-    return {
-        login: () => {
-            localStorage.setItem("role", RolesEnum.ADMIN)
-            localStorage.setItem("token", "token")
-        },
-        logout: () => {
-            localStorage.removeItem("role")
-            localStorage.removeItem("token")
-        },
-        isAuthenticated: () => {
-            return localStorage.getItem("token") ? true : false
-        },
+    const context = useContext(AuthContext);
+    if (!context) {
+      throw new Error('useAuth must be used within an AuthProvider');
     }
-}
+    return context;
+  };

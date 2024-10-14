@@ -13,7 +13,7 @@ export const Layout = () => {
 
     return (
         <div className="w-screen h-screen overflow-x-hidden">
-            {isAuthenticated() && <Navbar />}
+            {isAuthenticated && <Navbar />}
             <div className="flex h-full px-4">
                 <Wrapper>
                     <Outlet />

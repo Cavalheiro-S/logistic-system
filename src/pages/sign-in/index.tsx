@@ -4,13 +4,12 @@ import { Input } from "@/components/ui/input"
 import { useAuth } from "@/hooks/use-auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Warehouse } from "lucide-react"
-import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { z } from "zod"
 
 const SignIn = () => {
-    const { login, isAuthenticated } = useAuth()
+    const { login } = useAuth()
     const navigate = useNavigate()
 
     const formSchema = z.object({
@@ -22,17 +21,10 @@ const SignIn = () => {
         resolver: zodResolver(formSchema),
     })
 
-    useEffect(() => {
-        if(isAuthenticated()) {
-            navigate("/home")
-        }
-    }, [isAuthenticated])
-
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         try {
             console.log(values)
             login()
-            window.location.reload()
             navigate("/home")
         }
         catch (error) {
