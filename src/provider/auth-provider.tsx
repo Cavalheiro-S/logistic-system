@@ -9,10 +9,16 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("isAuthenticated") === "true");
   
-    const login = () => setIsAuthenticated(true);
-    const logout = () => setIsAuthenticated(false);
+    const login = () => {
+      setIsAuthenticated(true)
+      localStorage.setItem("isAuthenticated", "true")
+    };
+    const logout = () => {
+      setIsAuthenticated(false)
+      localStorage.setItem("isAuthenticated", "false")
+    };
   
     return (
       <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
