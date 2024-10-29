@@ -9,8 +9,12 @@ import { UserPlus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 export const CreateUser = () => {
+    const { mutationCreateUser } = useUser()
+    const navigate = useNavigate()
 
     const formSchema = z.object({
         name: z.string().min(1, { message: "Nome é obrigatório" }),
@@ -35,8 +39,6 @@ export const CreateUser = () => {
         }
     })
 
-    const { mutationCreateUser } = useUser()
-
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const mapData: User = {
@@ -46,9 +48,9 @@ export const CreateUser = () => {
                 senha: values.password,
                 acesso: values.profile
             }
-            const response = await mutationCreateUser.mutateAsync(mapData)
-
-            console.log(response)
+            await mutationCreateUser.mutateAsync(mapData)
+            toast.success('Usuário criado com sucesso!')
+            navigate("/user/view")
         }
         catch (error) {
             console.error(error)

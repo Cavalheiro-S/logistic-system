@@ -5,23 +5,44 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { UserRoundPlus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { v4 as uuidv4 } from 'uuid';
+import { useAdress } from "@/hooks/queries/use-adress"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
-export const CreateDriver = () => {
-
+export const CreateAdress = () => {
+    const { mutationCreateAdress } = useAdress()
+    const navigate = useNavigate()
+    
     const formSchema = z.object({
-        name: z.string().min(1, { message: "Nome é obrigatório" }),
-        email: z.string().email({ message: "Email não é valido" }).min(1, { message: "Email é obrigatório" }),
-        phone: z.string().min(1, { message: "Número de telefone é obrigatório" }),
-        cpf: z.string().min(1, { message: "CPF é obrigatório" }),
-        re: z.string().min(1, { message: "RE é obrigatório" }),
+        street: z.string().min(1, { message: "Rua é obrigatório" }),
+        neighborhood: z.string().min(1, { message: "Bairro é obrigatório" }),
+        city: z.string().min(1, { message: "Cidade é obrigatório" }),
+        state: z.string().min(1, { message: "Estado é obrigatório" }),
+        cep: z.string().min(1, { message: "CEP é obrigatório" }),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
     })
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            const mapData: Adress = {
+                id: uuidv4(),
+                rua: values.street,
+                bairro: values.neighborhood,
+                cidade: values.city,
+                estado: values.state,
+                cep: values.cep
+            }
+            await mutationCreateAdress.mutateAsync(mapData)
+            toast.success('Endereço criado com sucesso!')
+            navigate("/adress/view")
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
 
     return (
@@ -30,68 +51,68 @@ export const CreateDriver = () => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 p-8 bg-white rounded-md shadow-lg ">
                     <div className="flex items-center gap-2">
                         <UserRoundPlus size={24} />
-                        <h2 className="text-2xl font-semibold">Cadasto de Motorista</h2>
+                        <h2 className="text-2xl font-semibold">Cadasto de Endereço</h2>
                     </div>
                     <FormField
-                        name="name"
+                        name="street"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem className="col-span-2">
-                                <FormLabel>Nome</FormLabel>
+                                <FormLabel>Rua</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Nome do motorista" {...field} />
+                                    <Input placeholder="Rua" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
-                        name="email"
+                        name="neighborhood"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem className="col-span-2">
-                                <FormLabel>E-mail</FormLabel>
+                                <FormLabel>Bairro</FormLabel>
                                 <FormControl>
-                                    <Input type="email" placeholder="Email" {...field} />
+                                    <Input placeholder="Bairro" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
-                        name="phone"
+                        name="city"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem className="col-span-1">
-                                <FormLabel>Telefone</FormLabel>
+                                <FormLabel>Cidade</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Telefone" {...field} />
+                                    <Input placeholder="Cidade" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
-                        name="cpf"
+                        name="state"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem className="col-span-1">
-                                <FormLabel>CPF</FormLabel>
+                                <FormLabel>Estado</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="CPF do motorista" {...field} />
+                                    <Input placeholder="Estado" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
-                        name="re"
+                        name="cep"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem className="col-span-1">
-                                <FormLabel>RE</FormLabel>
+                                <FormLabel>CEP</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="RE do motorista" {...field} />
+                                    <Input placeholder="CEP" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

@@ -6,24 +6,6 @@ const useGetItems = () => {
 
     const navItems: NavItem[] = [
         {
-            title: "Veículo",
-            visible: userRole === RolesEnum.ADMIN,
-            children: [
-                {
-                    title: "Cadastrar",
-                    description: "Cadastre seus veículos",
-                    path: "/vehicle/create",
-                    visible: userRole === RolesEnum.ADMIN,
-                },
-                {
-                    title: "Listar",
-                    description: "Liste seus veículos",
-                    path: "/vehicle/view",
-                    visible: userRole === RolesEnum.ADMIN,
-                }
-            ],
-        },
-        {
             title: "Usuário",
             visible: userRole === RolesEnum.ADMIN,
             children: [
@@ -42,20 +24,50 @@ const useGetItems = () => {
             ]
         },
         {
+            title: "Veículo",
+            visible: userRole === RolesEnum.ADMIN,
+            children: [
+                {
+                    title: "Cadastrar",
+                    description: "Cadastre seus veículos",
+                    path: "/vehicle/create",
+                    visible: userRole === RolesEnum.ADMIN,
+                },
+                {
+                    title: "Listar",
+                    description: "Liste seus veículos",
+                    path: "/vehicle/view",
+                    visible: userRole === RolesEnum.ADMIN,
+                }
+            ],
+        },
+        {
             title: "Endereço",
             visible: userRole === RolesEnum.ADMIN,
             children: [
                 {
                     title: "Cadastrar",
                     description: "Cadastre seus endereços",
-                    path: "/user/create",
+                    path: "/adress/create",
                     visible: userRole === RolesEnum.ADMIN,
                 },
                 {
                     title: "Listar",
                     description: "Liste seus endereços",
-                    path: "/user/view",
+                    path: "/adress/view",
                     visible: userRole === RolesEnum.ADMIN,
+                }
+            ]
+        },
+        {
+            title: "Escolher Rota",
+            visible: userRole === RolesEnum.DRIVER,
+            children: [
+                {
+                    title: "Selecionar a Rota",
+                    description: "Selecione sua rota de viagem",
+                    path: "/",
+                    visible: userRole === RolesEnum.DRIVER,
                 }
             ]
         }

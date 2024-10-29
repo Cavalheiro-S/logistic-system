@@ -1,19 +1,15 @@
 import { createBrowserRouter, Link } from "react-router-dom";
 import { Layout } from "./components/layout";
-import { CreateDriver } from "./pages/driver/create";
-import { ViewDriver } from "./pages/driver/view";
+import { Button } from "./components/ui/button";
+import { CreateAdress } from "./pages/adress/create";
+import { ViewAdress } from "./pages/adress/view";
 import { Home } from "./pages/home";
-import { CreateOrder } from "./pages/order/create";
-import { ViewOrder } from "./pages/order/view";
-import { CreateProduct } from "./pages/product/create";
-import { ViewProduct } from "./pages/product/view";
 import SignIn from "./pages/sign-in";
 import { CreateUser } from "./pages/user/create";
 import { ViewUser } from "./pages/user/view";
 import { CreateVehicle } from "./pages/vehicle/create";
 import { ViewVehicle } from "./pages/vehicle/view";
 import ProtectedRoute from "./utils/protected-route";
-import { Button } from "./components/ui/button";
 
 export const router = createBrowserRouter([
     {
@@ -23,7 +19,7 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <div className="flex flex-col items-center gap-2">
-                    <span className="text-2xl"> Bem vindo ao sistema de logística</span> 
+                    <span className="text-2xl"> Bem vindo ao sistema de logística</span>
                     <Link to={"/signin"}>
                         <Button>
                             Acessar o Sistema
@@ -43,13 +39,13 @@ export const router = createBrowserRouter([
                     </ProtectedRoute>
             },
             {
-                path: "product",
+                path: "adress",
                 children: [
                     {
                         path: "create",
                         element:
                             <ProtectedRoute>
-                                <CreateProduct />
+                                <CreateAdress />
                             </ProtectedRoute>
 
                     },
@@ -57,7 +53,7 @@ export const router = createBrowserRouter([
                         path: "view",
                         element:
                             <ProtectedRoute>
-                                <ViewProduct />
+                                <ViewAdress />
                             </ProtectedRoute>
                     }
                 ]
@@ -77,45 +73,6 @@ export const router = createBrowserRouter([
                         element:
                             <ProtectedRoute>
                                 <ViewUser />
-                            </ProtectedRoute>
-                    }
-                ]
-            },
-            {
-                path: "driver",
-                children: [
-                    {
-                        path: "create",
-                        element:
-                            <ProtectedRoute>
-
-                                <CreateDriver />
-                            </ProtectedRoute>
-                    },
-                    {
-                        path: "view",
-                        element:
-                            <ProtectedRoute>
-                                <ViewDriver />
-                            </ProtectedRoute>
-                    }
-                ]
-            },
-            {
-                path: "order",
-                children: [
-                    {
-                        path: "create",
-                        element:
-                            <ProtectedRoute>
-                                <CreateOrder />
-                            </ProtectedRoute>
-                    },
-                    {
-                        path: "view",
-                        element:
-                            <ProtectedRoute>
-                                <ViewOrder />
                             </ProtectedRoute>
                     }
                 ]
