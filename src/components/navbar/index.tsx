@@ -5,8 +5,13 @@ import { Fragment } from "react/jsx-runtime"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu"
 import { Separator } from "../ui/separator"
 import useGetItems from "./hooks/use-get-items"
+import { useState } from "react"
+import { RolesLabelEnum } from "@/enum/roles"
 
 export const Navbar = () => {
+    const [name,] = useState(localStorage.getItem("name"))
+    const [role,] = useState(localStorage.getItem("role"))
+
     const { logout } = useAuth()
     const navigate = useNavigate()
     const data = useGetItems()
@@ -51,8 +56,8 @@ export const Navbar = () => {
                 </NavigationMenuList>
             </NavigationMenu>
             <div className="flex flex-col items-center p-2 mr-2">
-                <span>Lucas Cavalheiro</span>
-                <span className="text-xs text-gray-500">Administrador</span>
+                <span>{name}</span>
+                <span className="text-xs text-gray-500">{RolesLabelEnum[role as keyof typeof RolesLabelEnum]}</span>
 
             </div>
             <div onClick={() => {

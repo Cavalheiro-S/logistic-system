@@ -23,8 +23,7 @@ const SignIn = () => {
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         try {
-            console.log(values)
-            login()
+            login(values.email, values.password)
             navigate("/home")
         }
         catch (error) {
