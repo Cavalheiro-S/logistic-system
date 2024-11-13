@@ -11,11 +11,13 @@ export const createAdress = async (data: Adress) => {
 }
 
 export const updateAdress = async (data: Adress) => {
-    const response = await api.put(`/EnderecosEntregas/${data.id}`, data)
+    const response = await api.put(`/EnderecosEntregas`, data)
     return response.data
 }
 
-export const deleteAdress = async (id: string) => {
-    const response = await api.delete(`/EnderecosEntregas/${id}`)
+export const deleteAdress = async (data: Adress) => {
+    const response = await api.delete(`/EnderecosEntregas`, {
+        data
+    })
     return response.data
 }

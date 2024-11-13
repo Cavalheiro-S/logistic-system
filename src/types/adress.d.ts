@@ -1,5 +1,4 @@
 type Adress = {
-    id: string
     rua: string
     bairro: string
     cidade: string

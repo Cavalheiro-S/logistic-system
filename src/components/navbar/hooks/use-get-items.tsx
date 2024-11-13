@@ -66,7 +66,7 @@ const useGetItems = () => {
                 {
                     title: "Selecionar a Rota",
                     description: "Selecione sua rota de viagem",
-                    path: "/",
+                    path: "/delivery/choose",
                     visible: userRole === RolesEnum.DRIVER,
                 }
             ]

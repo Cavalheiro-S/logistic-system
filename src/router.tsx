@@ -10,6 +10,7 @@ import { ViewUser } from "./pages/user/view";
 import { CreateVehicle } from "./pages/vehicle/create";
 import { ViewVehicle } from "./pages/vehicle/view";
 import ProtectedRoute from "./utils/protected-route";
+import { DeliveryChoose } from "./pages/delivery/choose";
 
 export const router = createBrowserRouter([
     {
@@ -94,6 +95,18 @@ export const router = createBrowserRouter([
                                 <ViewVehicle />
                             </ProtectedRoute>
                     }
+                ]
+            },
+            {
+                path: "delivery",
+                children: [
+                    {
+                        path: "choose",
+                        element:
+                            <ProtectedRoute>
+                                <DeliveryChoose />
+                            </ProtectedRoute>
+                    },
                 ]
             }
         ]

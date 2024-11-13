@@ -5,13 +5,12 @@ import { useVehicle } from "@/hooks/queries/use-vehicle"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CarFront } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { v4 as uuidv4 } from 'uuid';
-import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import { z } from "zod"
 
 export const CreateVehicle = () => {
-    const {mutationCreateVehicle} = useVehicle()
+    const { mutationCreateVehicle } = useVehicle()
     const formSchema = z.object({
         plate: z.string().min(1, { message: "Placa é obrigatório" }),
         model: z.string().min(1, { message: "Modelo é obrigatório" }),
@@ -26,8 +25,7 @@ export const CreateVehicle = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const mapData: Vehicle = {
-                id: uuidv4(),
+            const mapData: PostVehicleRequest = {
                 capacidade: parseInt(values.capacity),
                 placa: values.plate,
                 modelo: values.model,

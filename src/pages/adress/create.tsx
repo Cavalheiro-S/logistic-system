@@ -1,14 +1,13 @@
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { UserRoundPlus } from "lucide-react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { v4 as uuidv4 } from 'uuid';
 import { useAdress } from "@/hooks/queries/use-adress"
-import { toast } from "react-toastify"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { MapPinHouse } from "lucide-react"
+import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import { z } from "zod"
 
 export const CreateAdress = () => {
     const { mutationCreateAdress } = useAdress()
@@ -29,7 +28,6 @@ export const CreateAdress = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const mapData: Adress = {
-                id: uuidv4(),
                 rua: values.street,
                 bairro: values.neighborhood,
                 cidade: values.city,
@@ -50,7 +48,7 @@ export const CreateAdress = () => {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 p-8 bg-white rounded-md shadow-lg ">
                     <div className="flex items-center gap-2">
-                        <UserRoundPlus size={24} />
+                        <MapPinHouse size={24} />
                         <h2 className="text-2xl font-semibold">Cadasto de Endereço</h2>
                     </div>
                     <FormField

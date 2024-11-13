@@ -1,26 +1,33 @@
+import { queryClient } from "@/lib/query-client"
 import { createVehicle, deleteVehicle, getVehicles, updateVehicle } from "@/services/vehicle"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
 export const useVehicle = () => {
 
     const { data: vehicles, isLoading, error } = useQuery({
-        queryKey: ["Vehicle"],
+        queryKey: ["vehicle"],
         queryFn: () => getVehicles(),
     })
 
     const mutationCreateVehicle = useMutation({
-        mutationKey: ["Vehicle"],
-        mutationFn: (data: Vehicle) => createVehicle(data),
+        mutationKey: ["vehicle"],
+        mutationFn: (data: PostVehicleRequest) => createVehicle(data),
     })
 
     const mutationUpdateVehicle = useMutation({
-        mutationKey: ["Vehicle"],
-        mutationFn: (data: Vehicle) => updateVehicle(data),
+        mutationKey: ["vehicle"],
+        mutationFn: (data: UpdateVehicleRequest) => updateVehicle(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["vehicle"] })
+        }
     })
 
     const mutationDeleteVehicle = useMutation({
-        mutationKey: ["Vehicle"],
-        mutationFn: (id: string) => deleteVehicle(id),
+        mutationKey: ["vehicle"],
+        mutationFn: (place: string) => deleteVehicle(place),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["vehicle"] })
+        }
     })
 
     return {

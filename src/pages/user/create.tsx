@@ -7,10 +7,9 @@ import { useUser } from "@/hooks/queries/use-user"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { UserPlus } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { v4 as uuidv4 } from 'uuid';
-import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import { z } from "zod"
 
 export const CreateUser = () => {
     const { mutationCreateUser } = useUser()
@@ -42,7 +41,6 @@ export const CreateUser = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const mapData: User = {
-                id: uuidv4(),
                 nome: values.name,
                 email: values.email,
                 senha: values.password,
