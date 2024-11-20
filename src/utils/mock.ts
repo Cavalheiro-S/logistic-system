@@ -1,16 +1,16 @@
 import { RolesEnum } from "@/enum/roles";
 
-export const mockLogin = [
+export const mockLogin: User[] = [
     {
-        name: "Admin",
+        nome: "Admin",
         email: "admin@email.com",
-        password: "123456",
-        acess: RolesEnum.ADMIN   
+        senha: "123456",
+        acesso: RolesEnum.ADMIN   
     },
     {
-        name: "Driver",
+        nome: "Driver",
         email: "driver@email.com",
-        password: "123456",
-        acess: RolesEnum.DRIVER
+        senha: "123456",
+        acesso: RolesEnum.DRIVER
     }
 ]

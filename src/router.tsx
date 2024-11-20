@@ -3,7 +3,6 @@ import { Layout } from "./components/layout";
 import { Button } from "./components/ui/button";
 import { CreateAdress } from "./pages/adress/create";
 import { ViewAdress } from "./pages/adress/view";
-import { Home } from "./pages/home";
 import SignIn from "./pages/sign-in";
 import { CreateUser } from "./pages/user/create";
 import { ViewUser } from "./pages/user/view";
@@ -11,6 +10,8 @@ import { CreateVehicle } from "./pages/vehicle/create";
 import { ViewVehicle } from "./pages/vehicle/view";
 import ProtectedRoute from "./utils/protected-route";
 import { DeliveryChoose } from "./pages/delivery/choose";
+import { DeliveryView } from "./pages/delivery/view";
+import Home from "./pages/home";
 
 export const router = createBrowserRouter([
     {
@@ -105,6 +106,13 @@ export const router = createBrowserRouter([
                         element:
                             <ProtectedRoute>
                                 <DeliveryChoose />
+                            </ProtectedRoute>
+                    },
+                    {
+                        path: "view",
+                        element:
+                            <ProtectedRoute>
+                                <DeliveryView />
                             </ProtectedRoute>
                     },
                 ]
